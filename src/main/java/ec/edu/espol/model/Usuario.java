@@ -9,6 +9,7 @@ package ec.edu.espol.model;
  *
  * @author alpha
  */
-public class Usuario {
+public abstract class Usuario {
+    
     
 }
