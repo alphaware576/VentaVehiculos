@@ -71,8 +71,8 @@ public class Vendedor extends Usuario {
     public void setOrganizacion(String organizacion) {
         this.organizacion = organizacion;
     }
-        
-        public static void nextVendedor(Scanner sc, String nomfile)
+     //permite el ingreo porr teclado para la posterior creacion de un objeto con plantilla de clase Vendedor   
+    public static void nextVendedor(Scanner sc, String nomfile)
     {
         System.out.println("Ingrese nombres>");
         String nombres = sc.next();
@@ -88,7 +88,7 @@ public class Vendedor extends Usuario {
         Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave,organizacion);
         v.saveFile(nomfile);
     }
-            
+     //guarda en un archivo de tec=xto plano a una instancia de la clase vendedor       
     public void saveFile(String nomfile){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
         {
@@ -98,6 +98,7 @@ public class Vendedor extends Usuario {
             System.out.println(e.getMessage());
         }
     }
+    //carga la base de datos de vendedores desde archivos en texto plano al iniciar el programa principal o Main
     public static ArrayList<Vendedor> readFile(String nomfile){
         ArrayList<Vendedor> vendedores = new ArrayList<>();
         try(Scanner sc = new Scanner(new File(nomfile))){
@@ -115,7 +116,7 @@ public class Vendedor extends Usuario {
         }
         return vendedores;
     }
-    
+    //busca a un vendedor por su identificador unico
     public static Vendedor searchByID(ArrayList<Vendedor> vendedores, int id)
     {
         for(Vendedor v : vendedores)
@@ -125,7 +126,7 @@ public class Vendedor extends Usuario {
         }
         return null;
     }
-    
+    //valida cuando se registra un vendedor que el correo sea unico dentro de los que ya estan almacenadosen la base de datos
     public static Vendedor searchByCorreo(ArrayList<Vendedor> vendedores, String correo)
     {
         for(Vendedor v : vendedores)
