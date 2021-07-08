@@ -119,8 +119,7 @@ public class Vendedor extends Usuario {
         else
             //retorno falso cuando la operacion no se logro con exito
             return false;
-    }
-    
+    }  
      //guarda en un archivo de tec=xto plano a una instancia de la clase vendedor       
     public void saveFile(String nomfile){
         //fileoutpustream permite abrir el archivo en pmodo append
