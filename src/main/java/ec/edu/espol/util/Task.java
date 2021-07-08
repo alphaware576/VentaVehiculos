@@ -59,7 +59,10 @@ public class Task {
     }
     public static int RegistrarVendedor(Scanner sc, ArrayList<Vendedor> vendedores) throws NoSuchAlgorithmException{
         System.out.println("Registrando nuevo vendedor");
-        Vendedor.nextVendedor(sc,"vendedores.txt",vendedores);
+        if(Vendedor.nextVendedor(sc,"vendedores.txt",vendedores))
+            System.out.println("Vendedor registrado con exito");
+        else
+            System.out.println("Vendedor ya registrado,use otra contrasena");
         System.out.println("3. Regresar");
         int opt=sc.nextInt();
         return opt;

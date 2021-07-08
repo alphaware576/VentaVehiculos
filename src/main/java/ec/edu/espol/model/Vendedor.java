@@ -9,7 +9,6 @@ import ec.edu.espol.util.Util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -73,8 +72,9 @@ public class Vendedor extends Usuario {
         this.organizacion = organizacion;
     }
 //permite el ingreo porr teclado para la posterior creacion de un objeto con plantilla de clase Vendedor   
-    public static void nextVendedor(Scanner sc, String nomfile) throws NoSuchAlgorithmException
+    public static void nextVendedor(Scanner sc, String nomfile)
     {
+        sc.useDelimiter("\n");
         System.out.println("Ingrese nombres>");
         String nombres = sc.next();
         System.out.println("Ingrese apellidos>");
@@ -85,14 +85,15 @@ public class Vendedor extends Usuario {
         String correo = sc.next();
         System.out.println("Ingrese clave>");
         String clave = sc.next();
-        String clave_sha256 = Util.toHexString(Util.getSHA(clave));
+        String clave_sha256 = Util.convertirSHA256(clave);
         int id = Util.nextID(nomfile);
         Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave_sha256,organizacion);
         v.saveFile(nomfile);
     }
     //crea un nuevo objeto vendedor si o solo si el correo del nuevo ingreso no se encuentra registrado ya en la base de datos
-    public static boolean nextVendedor(Scanner sc, String nomfile,ArrayList<Vendedor> vendedores) throws NoSuchAlgorithmException
+    public static boolean nextVendedor(Scanner sc, String nomfile,ArrayList<Vendedor> vendedores) 
     {
+        sc.useDelimiter("\n");
         System.out.println("Ingrese nombres>");
         String nombres = sc.next();
         System.out.println("Ingrese apellidos>");
@@ -103,10 +104,11 @@ public class Vendedor extends Usuario {
         String correo = sc.next();
         System.out.println("Ingrese clave>");
         String clave = sc.next();
-        String clave_sha256 = Util.toHexString(Util.getSHA(clave));
+        String clave_sha256 = Util.convertirSHA256(clave);
+        System.out.println("Clave convertida>"+ clave_sha256);
         int id = Util.nextID(nomfile);
         if(searchByCorreo(vendedores, correo)== null){
-                Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave,organizacion);
+                Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave_sha256,organizacion);
                 //adgrego a la memoria primero
                 vendedores.add(v);
                 //agrego luego al archivo de texto
