@@ -7,7 +7,6 @@ package ec.edu.espol.ventavehiculos;
 import ec.edu.espol.model.Vendedor;
 import ec.edu.espol.model.Comprador;
 import ec.edu.espol.util.Task;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -19,7 +18,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) {
         // TODO code application logic here
         ArrayList<Vendedor> vendedores= Task.consolidarVendedoresDB();
         ArrayList<Comprador> compradores=Task.consolidarComparadoresDB();
