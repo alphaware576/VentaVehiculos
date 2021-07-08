@@ -17,6 +17,7 @@ import java.util.Scanner;
  * @author isaac
  */
 public class Comprador extends Usuario{
+
        public Comprador(int id, String nombres, String apellidos, String correo, String clave, String organizacion){
         super(id, nombres,apellidos,correo,clave,organizacion);
     }
@@ -165,7 +166,7 @@ public class Comprador extends Usuario{
         }
         return null;
     }
-   
+
     
     
 }
