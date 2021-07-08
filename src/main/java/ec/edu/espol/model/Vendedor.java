@@ -9,6 +9,7 @@ import ec.edu.espol.util.Util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -71,8 +72,8 @@ public class Vendedor extends Usuario {
     public void setOrganizacion(String organizacion) {
         this.organizacion = organizacion;
     }
-     //permite el ingreo porr teclado para la posterior creacion de un objeto con plantilla de clase Vendedor   
-    public static void nextVendedor(Scanner sc, String nomfile)
+//permite el ingreo porr teclado para la posterior creacion de un objeto con plantilla de clase Vendedor   
+    public static void nextVendedor(Scanner sc, String nomfile) throws NoSuchAlgorithmException
     {
         System.out.println("Ingrese nombres>");
         String nombres = sc.next();
@@ -84,12 +85,43 @@ public class Vendedor extends Usuario {
         String correo = sc.next();
         System.out.println("Ingrese clave>");
         String clave = sc.next();
+        String clave_sha256 = Util.toHexString(Util.getSHA(clave));
         int id = Util.nextID(nomfile);
-        Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave,organizacion);
+        Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave_sha256,organizacion);
         v.saveFile(nomfile);
     }
+    //crea un nuevo objeto vendedor si o solo si el correo del nuevo ingreso no se encuentra registrado ya en la base de datos
+    public static boolean nextVendedor(Scanner sc, String nomfile,ArrayList<Vendedor> vendedores) throws NoSuchAlgorithmException
+    {
+        System.out.println("Ingrese nombres>");
+        String nombres = sc.next();
+        System.out.println("Ingrese apellidos>");
+        String apellidos = sc.next();
+        System.out.println("Ingrese organizacion>");
+        String organizacion = sc.next();
+        System.out.println("Ingrese correo electronico>");
+        String correo = sc.next();
+        System.out.println("Ingrese clave>");
+        String clave = sc.next();
+        String clave_sha256 = Util.toHexString(Util.getSHA(clave));
+        int id = Util.nextID(nomfile);
+        if(searchByCorreo(vendedores, correo)== null){
+                Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave,organizacion);
+                //adgrego a la memoria primero
+                vendedores.add(v);
+                //agrego luego al archivo de texto
+                v.saveFile(nomfile);
+                //retorno verdadero cuadno la operacion fue exitosa
+                return true;
+        }
+        else
+            //retorno falso cuando la operacion no se logro con exito
+            return false;
+    }
+    
      //guarda en un archivo de tec=xto plano a una instancia de la clase vendedor       
     public void saveFile(String nomfile){
+        //fileoutpustream permite abrir el archivo en pmodo append
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
         {
             pw.println(this.id+"|"+this.nombres+"|"+this.apellidos+"|"+this.correo+"|"+this.clave+"|"+this.organizacion);
