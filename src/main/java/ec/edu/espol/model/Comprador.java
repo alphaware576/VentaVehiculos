@@ -17,8 +17,12 @@ import java.util.Scanner;
  * @author isaac
  */
 public class Comprador extends Usuario{
+<<<<<<< HEAD
        
    
+=======
+    
+>>>>>>> johnny
     
     
 }
