@@ -20,6 +20,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("Ingrese nombres>");
         ArrayList<Vendedor> vendedores= Task.consolidarVendedoresDB();
         ArrayList<Comprador> compradores=Task.consolidarComparadoresDB();
         Scanner sc=new Scanner(System.in);
