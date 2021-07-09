@@ -33,7 +33,7 @@ public class Task {
     }
     public static ArrayList<Oferta> consolidarOfertasDB(){
         //cargo a los objetos vendedores desde sus  base de datos en archivos de texto
-        return Vehiculo.readFile("ofertas.txt");    
+        return Oferta.readFile("ofertas.txt");    
     }
     public static int MenuOpciones(Scanner sc){
         System.out.println("Menu de opciones:\n");
@@ -87,13 +87,30 @@ public class Task {
         return opt;
         
     }
-    public static int AceptarOferta(Scanner sc,ArrayList<Oferta> ofertas){
+    public static int AceptarOferta(Scanner sc,ArrayList<Oferta> ofertas, ArrayList<Vendedor> vendedores){
         System.out.println("Registrando una nueva oferta");
+        System.out.println("Ingrese su correo:");
+        sc.useDelimiter("\n");
+        String correo = sc.next();
+        System.out.println("Ingrese su clave");
+        sc.useDelimiter("\n");
+        String clave = sc.next();
+        Vendedor v=Vendedor.searchByCorreo(vendedores, correo);
+        if(v==null)System.out.println("Usuario no existe en la plataforma");
+        if(v.getClave().equals(Util.convertirSHA256(correo))){
+            //Hacer comportamiento listar ofertas
+            System.out.println("Listando ofertas");
+        }
+        else{
+            System.out.println("Usuario no existe en la plataforma");
+        }
         System.out.println("3. Regresar");
         int opt=sc.nextInt();
         return opt;
         
     }
+
+    
     
     
 }

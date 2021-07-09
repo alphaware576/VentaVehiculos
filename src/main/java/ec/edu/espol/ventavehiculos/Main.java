@@ -6,6 +6,8 @@
 package ec.edu.espol.ventavehiculos;
 import ec.edu.espol.model.Vendedor;
 import ec.edu.espol.model.Comprador;
+import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.model.Oferta;
 import ec.edu.espol.util.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,6 +25,8 @@ public class Main {
         System.out.println("Ingrese nombres>");
         ArrayList<Vendedor> vendedores= Task.consolidarVendedoresDB();
         ArrayList<Comprador> compradores=Task.consolidarComparadoresDB();
+        ArrayList<Vehiculo> vehiculos=Task.consolidarVehiculosDB();
+        ArrayList<Oferta> ofertas=Task.consolidarOfertasDB();
         Scanner sc=new Scanner(System.in);
         int first_opt;
         do{
@@ -34,9 +38,11 @@ public class Main {
                                 case 1:
                                     Task.RegistrarVendedor(sc,vendedores);
                                 case 2:
-                                    
+                                    Task.RegistrarVehiculo(sc, vehiculos);
                                 case 3:
-                                
+                                    Task.AceptarOferta(sc,ofertas,vendedores);
+                                case 4:
+                                    break;
                             }
                         case 2:
                             Task.MenuComprador(sc);

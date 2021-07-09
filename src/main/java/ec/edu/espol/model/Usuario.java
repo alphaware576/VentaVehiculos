@@ -27,8 +27,5 @@ public abstract class Usuario {
         this.correo=correo;
         this.clave=clave;
         this.organizacion=organizacion;     
-    }
-
-    
-    
+    }  
 }
