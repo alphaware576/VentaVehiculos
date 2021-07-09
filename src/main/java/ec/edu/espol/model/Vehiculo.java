@@ -5,8 +5,10 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.util.Util;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -31,7 +33,7 @@ public class Vehiculo {
     }
     //carro
     public Vehiculo(String pl, String ma, String mo, String tM, 
-            int a, int r, String c, String tC, String v, String trs, int p){
+        int a, int r, String c, String tC, String v, String trs, int p){
         this.placa = pl;
         this.marca = ma;
         this.modelo = mo;
@@ -47,7 +49,7 @@ public class Vehiculo {
     //camioneta
     public Vehiculo(String pl, String ma, String mo, String tM, 
             int a, int r, String c, String tC, String v, String trs, 
-            String trc, int p){
+        String trc, int p){
         this.placa = pl;
         this.marca = ma;
         this.modelo = mo;
@@ -63,7 +65,7 @@ public class Vehiculo {
     }
     //moto
     public Vehiculo(String pl, String ma, String mo, String tM, 
-            int a, int r, String c, String tC, int p){
+        int a, int r, String c, String tC, int p){
         this.placa = pl;
         this.marca = ma;
         this.modelo = mo;
@@ -171,7 +173,25 @@ public class Vehiculo {
     public int setPrecio(){
         return this.precio;
     }
-    
+    public static void nextVehiculo(Scanner sc, String nomfile)
+    {
+        sc.useDelimiter("\n");
+        System.out.println("Ingrese el tipo de vehiculo>");
+        System.out.println("1.Camioneta 2.Carro 3.Moto");
+        int opt = sc.nextInt();
+        System.out.println("Ingrese marca>");
+        String apellidos = sc.next();
+        System.out.println("Ingrese Modelo>");
+        String organizacion = sc.next();
+        System.out.println("Ingrese Tipo >");
+        String correo = sc.next();
+        System.out.println("Ingrese clave>");
+        String clave = sc.next();
+        String clave_sha256 = Util.convertirSHA256(clave);
+        int id = Util.nextID(nomfile);
+        //Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave_sha256,organizacion);
+        //v.saveFile(nomfile);
+    }
     public boolean validar(){
         List<String> lst = new ArrayList();
         for (int i = 0 ; i < lst.size() ; i++){

@@ -6,7 +6,8 @@
 package ec.edu.espol.util;
 import ec.edu.espol.model.Vendedor;
 import ec.edu.espol.model.Comprador;
-import java.security.NoSuchAlgorithmException;
+import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.model.Oferta;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -25,6 +26,14 @@ public class Task {
     public static ArrayList<Comprador> consolidarComparadoresDB(){
         //cargo a los objetos vendedores desde sus  base de datos en archivos de texto
         return Comprador.readFile("compradores.txt");    
+    }
+    public static ArrayList<Vehiculo> consolidarVehiculosDB(){
+        //cargo a los objetos vendedores desde sus  base de datos en archivos de texto
+        return Vehiculo.readFile("vehiculos.txt");    
+    }
+    public static ArrayList<Oferta> consolidarOfertasDB(){
+        //cargo a los objetos vendedores desde sus  base de datos en archivos de texto
+        return Vehiculo.readFile("ofertas.txt");    
     }
     public static int MenuOpciones(Scanner sc){
         System.out.println("Menu de opciones:\n");
@@ -62,10 +71,29 @@ public class Task {
         if(Vendedor.nextVendedor(sc,"vendedores.txt",vendedores))
             System.out.println("Vendedor registrado con exito");
         else
-            System.out.println("Vendedor ya registrado,use otra contrasena");
+            System.out.println("Vendedor ya registrado,use otro correo");
         System.out.println("3. Regresar");
         int opt=sc.nextInt();
         return opt;
     }
+    public static int RegistrarVehiculo(Scanner sc,ArrayList<Vehiculo> vehiculos){
+        System.out.println("Registrando un nuevo vehiculo");
+        if(Vehiculo.nextVehiculo(sc,"vehiculos.txt", vehiculos))
+            System.out.println("Vehiculo registrado con exito");
+        else
+            System.out.println("Vehiculo ya registrado,use otra placa");
+        System.out.println("3. Regresar");
+        int opt=sc.nextInt();
+        return opt;
+        
+    }
+    public static int AceptarOferta(Scanner sc,ArrayList<Oferta> ofertas){
+        System.out.println("Registrando una nueva oferta");
+        System.out.println("3. Regresar");
+        int opt=sc.nextInt();
+        return opt;
+        
+    }
+    
     
 }

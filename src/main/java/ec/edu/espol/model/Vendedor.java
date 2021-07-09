@@ -105,7 +105,7 @@ public class Vendedor extends Usuario {
         System.out.println("Ingrese clave>");
         String clave = sc.next();
         String clave_sha256 = Util.convertirSHA256(clave);
-        System.out.println("Clave convertida>"+ clave_sha256);
+        //System.out.println("Clave convertida>"+ clave_sha256);
         int id = Util.nextID(nomfile);
         if(searchByCorreo(vendedores, correo)== null){
                 Vendedor v = new Vendedor(id,nombres,apellidos,correo,clave_sha256,organizacion);
