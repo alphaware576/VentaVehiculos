@@ -78,7 +78,7 @@ public class Task {
     }
     public static int RegistrarVehiculo(Scanner sc,ArrayList<Vehiculo> vehiculos){
         System.out.println("Registrando un nuevo vehiculo");
-        if(Vehiculo.nextVehiculo(sc,"vehiculos.txt", vehiculos))
+        if(Vehiculo.nextVehiculoCarro(sc,"vehiculos.txt", vehiculos))
             System.out.println("Vehiculo registrado con exito");
         else
             System.out.println("Vehiculo ya registrado,use otra placa");
