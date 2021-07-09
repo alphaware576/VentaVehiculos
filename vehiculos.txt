@@ -1,0 +1,1 @@
+1000|Placa|Marca|Modelo|Tipo_Motor|Año|Recorrido|Color|Tipo_Combustible|Vidrios|Transmision|Traccion|Precio
