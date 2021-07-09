@@ -172,7 +172,7 @@ public class Vehiculo {
         String color = sc.next();
         System.out.println("Ingrese el tipo de combustible>");
         String tC=sc.next();
-        System.out.println("Ingrese el numero de vidrios>");
+        System.out.println("Ingrese el tipo de vidrios>");
         String vidrios=sc.next();
         System.out.println("Ingrese el tipo de transmision>");
         String transmision=sc.next();
