@@ -17,13 +17,28 @@ public class Oferta {
     private int id;
     private int idVehiculo;
     private int idVendedor;
-
-    public Oferta(int id, int idVehiculo, int idVendedor) {
+    private Vehiculo vehiculo;
+    private Vendedor vendedor;
+    private ArrayList<Comprador> compradores;
+    
+    public Oferta(int id, Vehiculo vehiculo, Vendedor vendedor) {
         this.id = id;
-        this.idVehiculo = idVehiculo;
-        this.idVendedor = idVendedor;
+        this.idVehiculo = vehiculo.getId();
+        this.idVendedor = vendedor.getId();
+        this.vendedor=vendedor;
+        this.vehiculo=vehiculo;
+        
     }
-
+    public Oferta(int id, Vehiculo vehiculo, Vendedor vendedor,Comprador c) {
+        this.id = id;
+        this.idVehiculo = vehiculo.getId();
+        this.idVendedor = vendedor.getId();
+        this.vendedor=vendedor;
+        this.vehiculo=vehiculo;
+        this.compradores= new ArrayList<>();
+        this.compradores.add(c);
+    }
+    
     public int getIdOferta() {
         return id;
     }
@@ -48,16 +63,21 @@ public class Oferta {
         this.idVendedor = idVendedor;
     }
        
-    //carga la base de datos de vendedores desde archivos en texto plano al iniciar el programa principal o Main
-    public static ArrayList<Oferta> readFile(String nomfile){
+    //carga la base de datos de ofertas desde archivos en texto plano al iniciar el programa principal o Main
+    public static ArrayList<Oferta> readFile(String nomfile,ArrayList<Vendedor>vendedores, ArrayList<Vehiculo> vehiculos,ArrayList<Comprador> compradores){
         ArrayList<Oferta> ofertas = new ArrayList<>();
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {
-                // linea = "1|Juan|Perez|jperez@example.com|1234567890|espol"
+                // linea = "id|idVehiculo|idVendedor|idComprador" identificador 0 para cuando no hay compradores para esa oferta
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
-                Oferta o = new Oferta(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]));
+                Oferta o;
+                Vehiculo vh=Vehiculo.searchByID(vehiculos, Integer.parseInt(tokens[1]));
+                Vendedor v=Vendedor.searchByID(vendedores, Integer.parseInt(tokens[2]));
+                Comprador c=Comprador.searchByID(compradores, Integer.parseInt(tokens[3]));
+                if(c==null){ o= new Oferta(Integer.parseInt(tokens[0]),vh,v);}
+                else {o = new Oferta(Integer.parseInt(tokens[0]),vh,v,c);}
                 ofertas.add(o);
             }
         }
@@ -76,6 +96,6 @@ public class Oferta {
         }
         return null;
     }
-    
+   
     
 }

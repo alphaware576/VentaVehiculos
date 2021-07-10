@@ -22,11 +22,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Ingrese nombres>");
-        ArrayList<Vendedor> vendedores= Task.consolidarVendedoresDB();
-        ArrayList<Comprador> compradores=Task.consolidarComparadoresDB();
-        ArrayList<Vehiculo> vehiculos=Task.consolidarVehiculosDB();
-        ArrayList<Oferta> ofertas=Task.consolidarOfertasDB();
+        ArrayList<Vendedor> vendedores= Vendedor.readFile("vendedores.txt");
+        ArrayList<Comprador> compradores=Comprador.readFile("compradores.txt");
+        ArrayList<Vehiculo> vehiculos=Vehiculo.readFile("vehiculos.txt");
+        ArrayList<Oferta> ofertas=Oferta.readFile("ofertas.txt",vendedores,vehiculos,compradores);
         Scanner sc=new Scanner(System.in);
         int first_opt;
         do{
@@ -38,9 +37,17 @@ public class Main {
                                 case 1:
                                     Task.RegistrarVendedor(sc,vendedores);
                                 case 2:
-                                    Task.RegistrarVehiculo(sc, vehiculos);
+                                    System.out.println("Seleccione el tipo de Vehiculo a registrar:");
+                                    System.out.println("1: Carro");
+                                    System.out.println("2: Camioneta");
+                                    System.out.println("3: Motocicleta");
+                                    int opcion=sc.nextInt();
+                                    Task.RegistrarVehiculo(sc, vehiculos,opcion);
+                                    break;
                                 case 3:
-                                    Task.AceptarOferta(sc,ofertas,vendedores);
+                                    if(Task.AceptarOferta(sc,ofertas,vendedores)){
+                                        //listo todas las ofertas
+                                    }
                                 case 4:
                                     break;
                             }
@@ -53,5 +60,6 @@ public class Main {
        
         
     }
+    
     
 }
