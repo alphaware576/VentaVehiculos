@@ -186,8 +186,7 @@ public class Vehiculo {
         }
         else
             return false;
-            
-        
+   
     }
     public static boolean nextVehiculoCamioneta(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos) {
         sc.useDelimiter("\n");
@@ -308,5 +307,10 @@ public class Vehiculo {
         }
         return null;
     }
+    @Override
+    public String toString(){
+        return this.getMarca()+" "+this.getModelo()+ " "+this.getTipo_motor()+" Precio: "+this.getPrecio();
+    }
+    
     
 }

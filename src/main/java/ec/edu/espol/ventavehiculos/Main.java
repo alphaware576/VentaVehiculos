@@ -25,7 +25,7 @@ public class Main {
         ArrayList<Vendedor> vendedores= Vendedor.readFile("vendedores.txt");
         ArrayList<Comprador> compradores=Comprador.readFile("compradores.txt");
         ArrayList<Vehiculo> vehiculos=Vehiculo.readFile("vehiculos.txt");
-        ArrayList<Oferta> ofertas=Oferta.readFile("ofertas.txt");
+        ArrayList<Oferta> ofertas=Oferta.readFile("ofertas.txt",vendedores,vehiculos,compradores);
         Scanner sc=new Scanner(System.in);
         int first_opt;
         do{
@@ -60,5 +60,6 @@ public class Main {
        
         
     }
+    
     
 }
