@@ -239,7 +239,7 @@ public class Vehiculo {
         String color = sc.next();
         System.out.println("Ingrese el tipo de combustible>");
         String tC=sc.next();
-        System.out.println("Ingrese el numero de vidrios>");
+        System.out.println("Ingrese el tipo de vidrios>");
         String vidrios=sc.next();
         System.out.println("Ingrese el tipo de transmision>");
         String transmision=sc.next();
@@ -343,33 +343,37 @@ public class Vehiculo {
         }
         return null;
     }
-    public static int RegistrarVehiculo(Scanner sc,ArrayList<Vehiculo> vehiculos,Vendedor v,int opcion){
+    public static boolean RegistrarVehiculo(ArrayList<Vehiculo> vehiculos,Vendedor v,int opcion){
         System.out.println("Registrando un nuevo vehiculo");
+        Scanner sc=new Scanner(System.in);
+        sc.useDelimiter("\n");
         switch(opcion){
             case 1:
-                    if(Vehiculo.nextVehiculoCarro(sc,"vehiculos.txt", vehiculos,v))
+                    if(Vehiculo.nextVehiculoCarro(sc,"vehiculos.txt", vehiculos,v)){
                     System.out.println("Vehiculo tipo carro registrado con exito");
-                    else
+                    return true;}
+                    else{
                     System.out.println("Vehiculo ya registrado,use otra placa");
-                 break;
+                    return false;}
             case 2:
-                if(Vehiculo.nextVehiculoCamioneta(sc,"vehiculos.txt", vehiculos,v))
+                if(Vehiculo.nextVehiculoCamioneta(sc,"vehiculos.txt", vehiculos,v)){
                     System.out.println("Vehiculo tipo camioneta registrado con exito");
-                    else
+                    return true;}
+                else{
                     System.out.println("Vehiculo ya registrado,use otra placa");
-                break;
+                    return false;}
             case 3:
-                 if(Vehiculo.nextVehiculoMotocicleta(sc,"vehiculos.txt", vehiculos,v))
+                 if(Vehiculo.nextVehiculoMotocicleta(sc,"vehiculos.txt", vehiculos,v)){
                     System.out.println("Vehiculo tipo mmotocicleta registrado con exito");
-                    else
+                 return true;}
+                 else{
                     System.out.println("Vehiculo ya registrado,use otra placa");
-                 break;
+                    return false;}
             default:
                 System.out.println("No existe ese tipo de vehiculo selecionado");
-                break;
+                return false;
+                
         }
-        int opt=sc.nextInt();
-        return opt;
         
     }
     @Override

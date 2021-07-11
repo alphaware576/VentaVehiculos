@@ -48,8 +48,13 @@ public class Main {
                        Usuario user=login(vendedores, compradores);
                        if(user!=null){
                            Vendedor v=(Vendedor)user;
+                           System.out.println("Ingreso el tipo de Vehiculo a registrar");
+                            System.out.println("1. Carro");
+                            System.out.println("2.Camioneta");
+                            System.out.println("3.Motocicleta");
+                            int op=sc.nextInt();
                            //validar que sea del tipo vendedor y no comprador
-                           Vehiculo.RegistrarVehiculo(sc, vehiculos, v, opt);
+                           Vehiculo.RegistrarVehiculo( vehiculos, v, op);
                        } 
                     }
                     //aceptar una nueva oferta

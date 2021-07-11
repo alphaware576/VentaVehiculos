@@ -50,10 +50,13 @@ public class Task {
         int opt=sc.nextInt();
         return opt;
     }
-    
-
-
-    
-    
+    public static int OpcionesVehiculo(Scanner sc){
+        System.out.println("Ingreso el tipo de Vehiculo a registrar");
+        System.out.println("1. Carro");
+        System.out.println("2.Camioneta");
+        System.out.println("3.Motocicleta");
+        int opt=sc.nextInt();
+        return opt;
+    }
     
 }
