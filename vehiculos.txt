@@ -1,6 +1,6 @@
-200|GSX-1234|Hyundai|elantra|v4|2006|25000|negro|gasolina|electricos|manual|##|19000
-201|GSX-1235|Hyundai|Tucson|v4|2017|50000|blanco|gasolina|electricos|automatico|4x4|23000
-202|GSX-1236|Honda|CBR1000|v4|2020|5000|rojo|gasolina|##|##|##|3500
-203|GSX-1234|Hyundai|elantra|v4|2006|25000|negro|gasolina|electricos|manual|##|19000
-204|GSX-1235|Hyundai|Tucson|v4|2017|50000|blanco|gasolina|electricos|automatico|4x4|23000
-205|GSX-1236|Honda|CBR1000|v4|2020|5000|rojo|gasolina|##|##|##|3500
+200|GSX-1234|Hyundai|elantra|v4|2006|25000|negro|gasolina|electricos|manual|##|19000|100
+201|GSX-1235|Hyundai|Tucson|v4|2017|50000|blanco|gasolina|electricos|automatico|4x4|23000|100
+202|GSX-1236|Honda|CBR1000|v4|2020|5000|rojo|gasolina|##|##|##|3500|100
+203|GSX-1234|Hyundai|elantra|v4|2006|25000|negro|gasolina|electricos|manual|##|19000|101
+204|GSX-1235|Hyundai|Tucson|v4|2017|50000|blanco|gasolina|electricos|automatico|4x4|23000|102
+205|GSX-1236|Honda|CBR1000|v4|2020|5000|rojo|gasolina|##|##|##|3500|103

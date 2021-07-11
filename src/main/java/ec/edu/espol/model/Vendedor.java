@@ -17,58 +17,22 @@ import java.util.Scanner;
  * @author Johnny D.Parrales
  */
 public class Vendedor extends Usuario {
-    private int idOferta;
+    private ArrayList<Vehiculo> vehiculos;
     public Vendedor(int id, String nombres, String apellidos, String correo, String clave, String organizacion){
         super(id, nombres,apellidos,correo,clave,organizacion);
+        this.vehiculos=new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+    public void addVehiculo(Vehiculo veh){
+        this.vehiculos.add(veh);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public String getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(String organizacion) {
-        this.organizacion = organizacion;
-    }
     //crea un nuevo objeto vendedor si o solo si el correo del nuevo ingreso no se encuentra registrado ya en la base de datos
     public static boolean nextVendedor(Scanner sc, String nomfile,ArrayList<Vendedor> vendedores) 
     {
@@ -98,7 +62,7 @@ public class Vendedor extends Usuario {
         else
             //retorno falso cuando la operacion no se logro con exito
             return false;
-    }  
+    }
      //guarda en un archivo de tec=xto plano a una instancia de la clase vendedor       
     public void saveFile(String nomfile){
         //fileoutpustream permite abrir el archivo en pmodo append
@@ -148,6 +112,4 @@ public class Vendedor extends Usuario {
         }
         return null;
     }
-    
-    
 }

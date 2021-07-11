@@ -17,9 +17,12 @@ public class Oferta {
     private int id;
     private int idVehiculo;
     private int idVendedor;
+    private int idComprador;
     private Vehiculo vehiculo;
     private Vendedor vendedor;
-    private ArrayList<Comprador> compradores;
+    private Comprador comprador;
+    private int preciOfertado;
+
     
     public Oferta(int id, Vehiculo vehiculo, Vendedor vendedor) {
         this.id = id;
@@ -29,22 +32,23 @@ public class Oferta {
         this.vehiculo=vehiculo;
         
     }
-    public Oferta(int id, Vehiculo vehiculo, Vendedor vendedor,Comprador c) {
+    public Oferta(int id, Vehiculo vehiculo,Comprador comprador,int preciofertado) {
         this.id = id;
         this.idVehiculo = vehiculo.getId();
-        this.idVendedor = vendedor.getId();
-        this.vendedor=vendedor;
+        this.idVendedor = vehiculo.getIdVendedor();
+        this.idComprador=comprador.getId();
+        this.vendedor=vehiculo.getVendedor();
         this.vehiculo=vehiculo;
-        this.compradores= new ArrayList<>();
-        this.compradores.add(c);
+        this.comprador=comprador;
+        this.preciOfertado=preciofertado;
     }
-    
-    public int getIdOferta() {
+
+    public int getId() {
         return id;
     }
 
-    public void setIdOferta(int idOferta) {
-        this.id = idOferta;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdVehiculo() {
@@ -62,6 +66,46 @@ public class Oferta {
     public void setIdVendedor(int idVendedor) {
         this.idVendedor = idVendedor;
     }
+
+    public int getIdComprador() {
+        return idComprador;
+    }
+
+    public void setIdComprador(int idComprador) {
+        this.idComprador = idComprador;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public Comprador getComprador() {
+        return comprador;
+    }
+
+    public void setComprador(Comprador comprador) {
+        this.comprador = comprador;
+    }
+
+    public int getPreciOfertado() {
+        return preciOfertado;
+    }
+
+    public void setPreciOfertado(int preciOfertado) {
+        this.preciOfertado = preciOfertado;
+    }
        
     //carga la base de datos de ofertas desde archivos en texto plano al iniciar el programa principal o Main
     public static ArrayList<Oferta> readFile(String nomfile,ArrayList<Vendedor>vendedores, ArrayList<Vehiculo> vehiculos,ArrayList<Comprador> compradores){
@@ -69,15 +113,16 @@ public class Oferta {
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {
-                // linea = "id|idVehiculo|idVendedor|idComprador" identificador 0 para cuando no hay compradores para esa oferta
+                // linea = "id|idVehiculo|idVendedor|idComprador|precioOferta" identificador 0 para cuando no hay compradores para esa oferta
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
                 Oferta o;
                 Vehiculo vh=Vehiculo.searchByID(vehiculos, Integer.parseInt(tokens[1]));
                 Vendedor v=Vendedor.searchByID(vendedores, Integer.parseInt(tokens[2]));
                 Comprador c=Comprador.searchByID(compradores, Integer.parseInt(tokens[3]));
-                if(c==null){ o= new Oferta(Integer.parseInt(tokens[0]),vh,v);}
-                else {o = new Oferta(Integer.parseInt(tokens[0]),vh,v,c);}
+                o=new Oferta(Integer.parseInt(tokens[0]),vh,c,Integer.parseInt(tokens[4]));
+                o.vendedor=v;
+                c.addOferta(o);
                 ofertas.add(o);
             }
         }
@@ -96,6 +141,41 @@ public class Oferta {
         }
         return null;
     }
-   
+    public static ArrayList<Oferta> searchByIDVendedor(ArrayList<Oferta> ofertas,int id){
+        ArrayList<Oferta> ofertasFiltered=new ArrayList<>();
+        for(Oferta o : ofertas){
+            if(o.getVendedor().getId()==id)
+            ofertasFiltered.add(o);    
+        }
+        return ofertasFiltered;
+    }
+/*@Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append("Vendedor: ");
+        sb.append(this.getVendedor().nombres);
+        sb.append("\nCorreo: ");
+        sb.append(this.getVendedor().correo);
+        sb.append("\nQuien vende vehiculo: ");
+        sb.append(this.getVehiculo().toString());
+        sb.append("\nSe han realizado ");
+        //sb.append(this.compradores.size());
+        sb.append("ofertas\n");
+        //if(this.compradores.size()>0){
+            int count=1;
+            for(Comprador c: this.getCompradores()){
+                sb.append("Oferta ");
+                sb.append(count);
+                sb.append("\nCorreo: ");
+                sb.append(c.getCorreo());
+                sb.append("\nPrecio ofertado: ");
+                sb.append(this.preciOfertado);
+                sb.append("\n");
+            }
+        //}
+        return sb.toString();
+        
+    }
+   */
     
 }

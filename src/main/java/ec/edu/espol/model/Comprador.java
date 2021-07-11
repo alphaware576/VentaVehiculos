@@ -17,79 +17,25 @@ import java.util.Scanner;
  * @author isaac
  */
 public class Comprador extends Usuario{
+    private ArrayList<Oferta> ofertas;
 
        public Comprador(int id, String nombres, String apellidos, String correo, String clave, String organizacion){
         super(id, nombres,apellidos,correo,clave,organizacion);
+        this.ofertas=new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
+    public ArrayList<Oferta> getOfertas() {
+        return ofertas;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOfertas(ArrayList<Oferta> ofertas) {
+        this.ofertas = ofertas;
     }
-
-    public String getNombres() {
-        return nombres;
+    public void addOferta(Oferta oferta){
+        this.ofertas.add(oferta);
     }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public String getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(String organizacion) {
-        this.organizacion = organizacion;
-    }
-     //permite el ingreo porr teclado para la posterior creacion de un objeto con plantilla de clase Comprador  
-    public static void nextComprador(Scanner sc, String nomfile)
-    {
-        sc.useDelimiter("\n");
-        System.out.println("Ingrese nombres>");
-        String nombres = sc.next();
-        System.out.println("Ingrese apellidos>");
-        String apellidos = sc.next();
-        System.out.println("Ingrese organizacion>");
-        String organizacion = sc.next();
-        System.out.println("Ingrese correo electronico>");
-        String correo = sc.next();
-        System.out.println("Ingrese clave>");
-        String clave = sc.next();String clave_sha256 = Util.convertirSHA256(clave);
-        int id = Util.nextID(nomfile);
-        Comprador c = new Comprador(id,nombres,apellidos,correo,clave_sha256,organizacion);
-        c.saveFile(nomfile);
-    }
-    
     //crea un nuevo objeto vendedor si o solo si el correo del nuevo ingreso no se encuentra registrado ya en la base de datos
-    public static boolean nextVendedor(Scanner sc, String nomfile,ArrayList<Comprador> compradores) 
+    public static boolean nextComprador(Scanner sc, String nomfile,ArrayList<Comprador> compradores) 
     {
         sc.useDelimiter("\n");
         System.out.println("Ingrese nombres>");
@@ -103,7 +49,6 @@ public class Comprador extends Usuario{
         System.out.println("Ingrese clave>");
         String clave = sc.next();
         String clave_sha256 = Util.convertirSHA256(clave);
-        System.out.println("Clave convertida>"+ clave_sha256);
         int id = Util.nextID(nomfile);
         if(searchByCorreo(compradores, correo)== null){
                 Comprador c = new Comprador(id,nombres,apellidos,correo,clave_sha256,organizacion);

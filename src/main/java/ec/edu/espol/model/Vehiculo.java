@@ -30,9 +30,12 @@ public class Vehiculo {
     private String transmision;
     private String traccion;
     private int precio;
+    private int idVendedor;
+    private Vendedor vendedor;
+    private ArrayList<Oferta> ofertas;
     
     //carro
-    public Vehiculo(int id,String placa, String marca, String modelo, String tM, int a, String recorrido, String color, String tC, String vidrios, String transmision,String traccion, int precio){
+    public Vehiculo(int id,String placa, String marca, String modelo, String tM, int a, String recorrido, String color, String tC, String vidrios, String transmision,String traccion, int precio,Vendedor vendedor){
         this.id=id;
         this.placa = placa;
         this.marca = marca;
@@ -46,10 +49,12 @@ public class Vehiculo {
         this.transmision=transmision;
         this.traccion=traccion;
         this.precio = precio;
+        this.idVendedor=vendedor.getId();
+        this.vendedor=vendedor;
+        this.ofertas=new ArrayList<>();
     }
-    
-    public int getId()
-    {
+
+    public int getId() {
         return id;
     }
 
@@ -149,12 +154,35 @@ public class Vehiculo {
         return precio;
     }
 
-    //setters y getters
     public void setPrecio(int precio) {
         this.precio = precio;
     }
 
-    public static boolean nextVehiculoCarro(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos) {
+    public int getIdVendedor() {
+        return idVendedor;
+    }
+
+    public void setIdVendedor(int idVendedor) {
+        this.idVendedor = idVendedor;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public ArrayList<Oferta> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(ArrayList<Oferta> ofertas) {
+        this.ofertas = ofertas;
+    }
+    
+    public static boolean nextVehiculoCarro(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos,Vendedor v) {
         sc.useDelimiter("\n");
         System.out.println("Ingrese placa>");
         String placa = sc.next();
@@ -180,15 +208,17 @@ public class Vehiculo {
         int precio=sc.nextInt();
         int id = Util.nextID(nomfile);
         if(searchByPlaca(vehiculos, placa)==null){
-            Vehiculo v = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC,  vidrios, transmision,"##",precio);
-            v.saveFile(nomfile);
+            Vehiculo veh = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC,  vidrios, transmision,"##",precio,v);
+            veh.idVendedor=v.id;
+            v.addVehiculo(veh);
+            veh.saveFile(nomfile);
             return true;
         }
         else
             return false;
    
     }
-    public static boolean nextVehiculoCamioneta(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos) {
+    public static boolean nextVehiculoCamioneta(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos,Vendedor v) {
         sc.useDelimiter("\n");
         System.out.println("Ingrese placa>");
         String placa = sc.next();
@@ -216,15 +246,15 @@ public class Vehiculo {
         int precio=sc.nextInt();
         int id = Util.nextID(nomfile);
         if(searchByPlaca(vehiculos, placa)==null){
-            Vehiculo v = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC,  vidrios, transmision,traccion,precio);
-            v.saveFile(nomfile);
+            Vehiculo veh = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC,  vidrios, transmision,traccion,precio,v);
+            veh.saveFile(nomfile);
             return true;
         }
         else
             return false;
         
     }
-    public static boolean nextVehiculoMotocicleta(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos) {
+    public static boolean nextVehiculoMotocicleta(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos, Vendedor v) {
         sc.useDelimiter("\n");
         System.out.println("Ingrese placa>");
         String placa = sc.next();
@@ -252,8 +282,8 @@ public class Vehiculo {
         int precio=sc.nextInt();
         int id = Util.nextID(nomfile);
         if(searchByPlaca(vehiculos, placa)==null){
-        Vehiculo v = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC, "##", "##","##",precio);
-        v.saveFile(nomfile);
+        Vehiculo veh = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC, "##", "##","##",precio,v);
+        veh.saveFile(nomfile);
         return true;
         }
         else return false;
@@ -263,23 +293,26 @@ public class Vehiculo {
         //fileoutpustream permite abrir el archivo en pmodo append
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
         {
-            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipo_motor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipo_comb+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion+"|"+this.precio);
+            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipo_motor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipo_comb+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion+"|"+this.precio+"|"+this.idVendedor);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
     //carga la base de datos de vendedores desde archivos en texto plano al iniciar el programa principal o Main
-    public static ArrayList<Vehiculo> readFile(String nomfile){
+    public static ArrayList<Vehiculo> readFile(String nomfile, ArrayList<Vendedor> vendedores){
         ArrayList<Vehiculo> vehiculos = new ArrayList<>();
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {
-                // linea = "1|Juan|Perez|jperez@example.com|1234567890|espol"
+                // linea = 200|GSX-1234|Hyundai|elantra|v4|2006|25000|negro|gasolina|electricos|manual|##|19000|100"
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
-                Vehiculo v = new Vehiculo(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],Integer.parseInt(tokens[5]),tokens[6],tokens[7],tokens[8],tokens[9],tokens[10],tokens[11],Integer.parseInt(tokens[12]));
-                vehiculos.add(v);
+                Vendedor v= Vendedor.searchByID(vendedores, Integer.parseInt(tokens[13]));
+                Vehiculo veh = new Vehiculo(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],Integer.parseInt(tokens[5]),tokens[6],tokens[7],tokens[8],tokens[9],tokens[10],tokens[11],Integer.parseInt(tokens[12]),v);
+                veh.idVendedor=v.id;
+                v.addVehiculo(veh);
+                vehiculos.add(veh);
             }
         }
         catch(Exception e){
@@ -306,6 +339,35 @@ public class Vehiculo {
                 return v;
         }
         return null;
+    }
+    public static int RegistrarVehiculo(Scanner sc,ArrayList<Vehiculo> vehiculos,Vendedor v,int opcion){
+        System.out.println("Registrando un nuevo vehiculo");
+        switch(opcion){
+            case 1:
+                    if(Vehiculo.nextVehiculoCarro(sc,"vehiculos.txt", vehiculos,v))
+                    System.out.println("Vehiculo tipo carro registrado con exito");
+                    else
+                    System.out.println("Vehiculo ya registrado,use otra placa");
+                 break;
+            case 2:
+                if(Vehiculo.nextVehiculoCamioneta(sc,"vehiculos.txt", vehiculos,v))
+                    System.out.println("Vehiculo tipo camioneta registrado con exito");
+                    else
+                    System.out.println("Vehiculo ya registrado,use otra placa");
+                break;
+            case 3:
+                 if(Vehiculo.nextVehiculoMotocicleta(sc,"vehiculos.txt", vehiculos,v))
+                    System.out.println("Vehiculo tipo mmotocicleta registrado con exito");
+                    else
+                    System.out.println("Vehiculo ya registrado,use otra placa");
+                 break;
+            default:
+                System.out.println("No existe ese tipo de vehiculo selecionado");
+                break;
+        }
+        int opt=sc.nextInt();
+        return opt;
+        
     }
     @Override
     public String toString(){
