@@ -250,6 +250,8 @@ public class Vehiculo {
         int id = Util.nextID(nomfile);
         if(searchByPlaca(vehiculos, placa)==null){
             Vehiculo veh = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC,  vidrios, transmision,traccion,precio,v);
+            veh.idVendedor=v.id;
+            v.addVehiculo(veh);
             veh.saveFile(nomfile);
             return true;
         }
@@ -286,6 +288,8 @@ public class Vehiculo {
         int id = Util.nextID(nomfile);
         if(searchByPlaca(vehiculos, placa)==null){
         Vehiculo veh = new Vehiculo(id, placa, marca, modelo,tM,a, recorrido,color,  tC, "##", "##","##",precio,v);
+        veh.idVendedor=v.id;
+        v.addVehiculo(veh);
         veh.saveFile(nomfile);
         return true;
         }

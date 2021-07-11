@@ -33,16 +33,17 @@ public class Main {
         do {
             first_opt = Task.MenuOpciones(sc);
             switch(first_opt){
+                //VENDEDOR:
                 case 1:
                     int opt=Task.MenuVendedor(sc);
-                    //registrar vendedor
+                    //VENDEDOR:1-Registrar vendedor////////////////////////////////////////////////////
                     if(opt==1){
                         if(Vendedor.nextVendedor(sc,"vendedores.txt", vendedores))
                             System.out.println("Vendedor registrado con exito");
                         else
                             System.out.println("No se ha registrado vendedor");
                     }
-                    //Ingresar un nuevo vehiculo
+                    //VENDEDOR:2-Ingresar un nuevo vehiculo///////////////////////////////////////////////
                     if(opt==2){
                     //primero logueo al usuario y lo traigo desde la base de datos
                        Usuario user=login(vendedores, compradores);
@@ -57,7 +58,7 @@ public class Main {
                            Vehiculo.RegistrarVehiculo( vehiculos, v, op);
                        } 
                     }
-                    //aceptar una nueva oferta
+                    //VENDEDOR:3-aceptar una nueva oferta(INCOMPLETO)
                     if(opt==3){
                     //primero logueo al usuario y lo traigo desde la base de datos
                        Usuario user=login(vendedores, compradores);
@@ -86,12 +87,33 @@ public class Main {
                                }
 
                            }    
-                       }
+                       }//fin de: login, si el usuario es null
                     }
                     break;
+                //COMPRADOR:
                 case 2:
-                    Task.MenuComprador(sc);
-                    break;     
+                    int o = Task.MenuComprador(sc);
+                    //COMPRADOR:1-Registrar un nuevo comprador////////////////////////////////////////////////////
+                    if(o==1){
+                        if(Comprador.nextComprador(sc,"compradores.txt", compradores))
+                            System.out.println("Comprador registrado con exito");
+                        else
+                            System.out.println("No se ha registrado Comprador");
+                    }
+                    if(o==2){
+                        //Ofertar por un vehiculo
+                        //primero logueo al usuario y lo traigo desde la base de datos
+                       Usuario user=login(vendedores, compradores);
+                       if(user!=null){
+                           Scanner temp=new Scanner(System.in);
+                           temp.useDelimiter("\n");
+                           Comprador c=(Comprador)user;
+                           //validar que sea del tipo comprador y no vendedor
+                           //filtros de busqueda
+                           //seleccion de vehiculo para ofertar
+                       }
+                    }
+                break;     
             }
             
         } while (first_opt != 3);
