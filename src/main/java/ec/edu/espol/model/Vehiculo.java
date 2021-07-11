@@ -5,21 +5,20 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  *
- * @author alpha
+ * @author jcevil
  */
 public class Vehiculo {
     private String placa;
     private String marca;
     private String modelo;
     private String tipo_motor;
-    private int aÃ±o;
+    private int año;
     private int recorrido;
     private String color;
     private String tipo_comb;
@@ -38,7 +37,7 @@ public class Vehiculo {
         this.marca = ma;
         this.modelo = mo;
         this.tipo_motor = tM;
-        this.aÃ±o = a;
+        this.año = a;
         this.recorrido = r;
         this.color = c;
         this.tipo_comb = tC;
@@ -54,7 +53,7 @@ public class Vehiculo {
         this.marca = ma;
         this.modelo = mo;
         this.tipo_motor = tM;
-        this.aÃ±o = a;
+        this.año = a;
         this.recorrido = r;
         this.color = c;
         this.tipo_comb = tC;
@@ -70,7 +69,7 @@ public class Vehiculo {
         this.marca = ma;
         this.modelo = mo;
         this.tipo_motor = tM;
-        this.aÃ±o = a;
+        this.año = a;
         this.recorrido = r;
         this.color = c;
         this.tipo_comb = tC;
@@ -94,8 +93,8 @@ public class Vehiculo {
         this.tipo_motor = tM;
     }
     
-    public void setAÃ±o(int a){
-        this.aÃ±o = a;
+    public void setAño(int a){
+        this.año = a;
     }
     
     public void setRecorrido(int r){
@@ -142,8 +141,8 @@ public class Vehiculo {
         return this.tipo_motor;
     }
     
-    public int setAÃ±o(){
-        return this.aÃ±o;
+    public int setAño(){
+        return this.año;
     }
     
     public int setRecorrido(){
