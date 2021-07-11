@@ -81,9 +81,38 @@ public class Main {
                                    System.out.println("No existen ofertas para el vehiculo con placa " + _selected.getPlaca());
                                } else {
                                    System.out.println("Se han realizado " + of.size() + " ofertas");
-                                   for (Oferta o : of) {
-                                       System.out.println(o.toString());
-                                   }
+                                   //for (Oferta o : of) {
+                                   //    System.out.println(o.toString());
+                                   //}
+                                   int select=0,count=0;
+                                   do{
+                                           Oferta o=of.get(count);
+                                           System.out.println(o.toString());
+                                           //valido para cuando la lista de ofertas solo tiene una sola oferta el menu debe presentar solo aceptar oferta
+                                           if(of.size()==1){
+                                               System.out.println("1.-Siguiente oferta");
+                                               System.out.println("3.- Aceptar oferta");
+                                               select=temp.nextInt();
+                                               if(select==3){
+                                                   //elimino de las bases de datos generales
+                                                   Vehiculo vh=Vehiculo.searchByID(vehiculos, o.getVehiculo().getId());
+                                                   Oferta ofer=Oferta.searchByID(ofertas,o.getId());
+                                                   ofertas.remove(ofer);
+                                                   vehiculos.remove(vh);
+                                                   //elimino la instacia de vehiculo en vendedor
+                                                   vh.getVendedor().getVehiculos().remove(vh);
+                                                   //elimino la instanncia de oferta en vehiculo
+                                                   vh.getOfertas().remove(ofer);
+                                                   //elimino la instancia de oferta en comprador
+                                                   ofer.getComprador().getOfertas().remove(ofer);
+                                                   System.out.println("vehiculos actualmente en el sistema "+vehiculos.size());
+                                               }
+                                               
+                                           }
+                                           
+                                          
+                                           
+                                   }while(select!=3);
                                }
 
                            }    
