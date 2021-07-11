@@ -181,6 +181,9 @@ public class Vehiculo {
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
+    public void addOferta(Oferta oferta){
+        this.ofertas.add(oferta);
+    }
     
     public static boolean nextVehiculoCarro(Scanner sc, String nomfile,ArrayList<Vehiculo> vehiculos,Vendedor v) {
         sc.useDelimiter("\n");

@@ -123,6 +123,7 @@ public class Oferta {
                 o=new Oferta(Integer.parseInt(tokens[0]),vh,c,Integer.parseInt(tokens[4]));
                 o.vendedor=v;
                 c.addOferta(o);
+                vh.addOferta(o);
                 ofertas.add(o);
             }
         }
@@ -149,33 +150,16 @@ public class Oferta {
         }
         return ofertasFiltered;
     }
-/*@Override
+@Override
     public String toString(){
         StringBuilder sb=new StringBuilder();
-        sb.append("Vendedor: ");
-        sb.append(this.getVendedor().nombres);
         sb.append("\nCorreo: ");
-        sb.append(this.getVendedor().correo);
-        sb.append("\nQuien vende vehiculo: ");
-        sb.append(this.getVehiculo().toString());
-        sb.append("\nSe han realizado ");
-        //sb.append(this.compradores.size());
-        sb.append("ofertas\n");
-        //if(this.compradores.size()>0){
-            int count=1;
-            for(Comprador c: this.getCompradores()){
-                sb.append("Oferta ");
-                sb.append(count);
-                sb.append("\nCorreo: ");
-                sb.append(c.getCorreo());
-                sb.append("\nPrecio ofertado: ");
-                sb.append(this.preciOfertado);
-                sb.append("\n");
-            }
-        //}
-        return sb.toString();
-        
+        sb.append(this.comprador.correo);
+        sb.append("\nPrecio ofertado: ");
+        sb.append(this.preciOfertado);
+        sb.append("\n");
+        return sb.toString();        
     }
-   */
+   
     
 }

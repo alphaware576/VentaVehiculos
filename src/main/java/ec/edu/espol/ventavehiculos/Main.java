@@ -57,14 +57,27 @@ public class Main {
                     //primero logueo al usuario y lo traigo desde la base de datos
                        Usuario user=login(vendedores, compradores);
                        if(user!=null){
+                           Scanner temp=new Scanner(System.in);
+                           temp.useDelimiter("\n");
                            Vendedor v=(Vendedor)user;
                            //validar que sea del tipo vendedor y no comprador
-                           System.out.println("Ingrese la placa del vehiculo para revisar las ofertas");
-                           String placa=sc.next();
+                           System.out.print("Ingrese la placa del vehiculo para revisar las ofertas: ");
+                           String placa=temp.next();
                            //busco la placa en al array ded vehiculos que ha publicado el vendedor
                            Vehiculo _selected=Vehiculo.searchByPlaca(v.getVehiculos(), placa);
+                           System.out.println(_selected.toString());
                            //obtengo las ofertas del vehiculo en cuestion e imprimo
-                           _selected.getOfertas();//imprimir lista de ofertas
+                           ArrayList<Oferta> of=_selected.getOfertas();//imprimir lista de ofertas
+                           if(of.isEmpty())
+                           System.out.println("No existen ofertas para el vehiculo con placa "+_selected.getPlaca());
+                           else
+                            {
+                                System.out.println("Se han realizado "+of.size()+" ofertas");
+                                for(Oferta o: of){
+                                    System.out.println(o.toString());   
+                                }
+                            }
+                           
                        }
                     }
                     break;
@@ -85,7 +98,7 @@ public class Main {
      Usuario user=Vendedor.searchByCorreo(vendedores, correo);
      if(user==null)
      {user=Comprador.searchByCorreo(compradores,correo);}
-     sc.close();
+     //sc.close();
         if(user==null){
             System.out.println("Usuario no existe en la plataforma");
             return null;
