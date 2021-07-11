@@ -65,19 +65,22 @@ public class Main {
                            String placa=temp.next();
                            //busco la placa en al array ded vehiculos que ha publicado el vendedor
                            Vehiculo _selected=Vehiculo.searchByPlaca(v.getVehiculos(), placa);
-                           System.out.println(_selected.toString());
-                           //obtengo las ofertas del vehiculo en cuestion e imprimo
-                           ArrayList<Oferta> of=_selected.getOfertas();//imprimir lista de ofertas
-                           if(of.isEmpty())
-                           System.out.println("No existen ofertas para el vehiculo con placa "+_selected.getPlaca());
-                           else
-                            {
-                                System.out.println("Se han realizado "+of.size()+" ofertas");
-                                for(Oferta o: of){
-                                    System.out.println(o.toString());   
-                                }
-                            }
-                           
+                           //valido que no este vacio el vehiculo
+                           if(_selected==null) System.out.println("No existe vehiculo con esa placa asociado con este vendedor");
+                           else {
+                               System.out.println(_selected.toString());
+                               //obtengo las ofertas del vehiculo en cuestion e imprimo
+                               ArrayList<Oferta> of = _selected.getOfertas();//imprimir lista de ofertas
+                               if (of.isEmpty()) {
+                                   System.out.println("No existen ofertas para el vehiculo con placa " + _selected.getPlaca());
+                               } else {
+                                   System.out.println("Se han realizado " + of.size() + " ofertas");
+                                   for (Oferta o : of) {
+                                       System.out.println(o.toString());
+                                   }
+                               }
+
+                           }    
                        }
                     }
                     break;
