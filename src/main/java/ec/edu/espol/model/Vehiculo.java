@@ -349,16 +349,15 @@ public class Vehiculo {
     }
     public static boolean RegistrarVehiculo(ArrayList<Vehiculo> vehiculos,Vendedor v,int opcion){
         System.out.println("Registrando un nuevo vehiculo");
-        Scanner sc=new Scanner(System.in);
-        sc.useDelimiter("\n");
+        Scanner sc = new Scanner(System.in);
         switch(opcion){
             case 1:
-                    if(Vehiculo.nextVehiculoCarro(sc,"vehiculos.txt", vehiculos,v)){
-                    System.out.println("Vehiculo tipo carro registrado con exito");
-                    return true;}
-                    else{
-                    System.out.println("Vehiculo ya registrado,use otra placa");
-                    return false;}
+                if(Vehiculo.nextVehiculoCarro(sc,"vehiculos.txt", vehiculos,v)){
+                System.out.println("Vehiculo tipo carro registrado con exito");
+                return true;}
+                else{
+                System.out.println("Vehiculo ya registrado,use otra placa");
+                return false;}
             case 2:
                 if(Vehiculo.nextVehiculoCamioneta(sc,"vehiculos.txt", vehiculos,v)){
                     System.out.println("Vehiculo tipo camioneta registrado con exito");
@@ -374,12 +373,13 @@ public class Vehiculo {
                     System.out.println("Vehiculo ya registrado,use otra placa");
                     return false;}
             default:
+                sc.close();
                 System.out.println("No existe ese tipo de vehiculo selecionado");
                 return false;
                 
         }
-        
     }
+
     @Override
     public String toString(){
         return this.getMarca()+" "+this.getModelo()+ " "+this.getTipo_motor()+" Precio: "+this.getPrecio();

@@ -23,7 +23,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         ArrayList<Vendedor> vendedores = Vendedor.readFile("vendedores.txt");
         ArrayList<Comprador> compradores = Comprador.readFile("compradores.txt");
         ArrayList<Vehiculo> vehiculos = Vehiculo.readFile("vehiculos.txt", vendedores);
@@ -58,17 +57,18 @@ public class Main {
                            Vehiculo.RegistrarVehiculo( vehiculos, v, op);
                        } 
                     }
-                    //VENDEDOR:3-aceptar una nueva oferta(INCOMPLETO)
+                    //VENDEDOR:3-aceptar una nueva oferta
                     if(opt==3){
                     //primero logueo al usuario y lo traigo desde la base de datos
                        Usuario user=login(vendedores, compradores);
                        if(user!=null){
-                           Scanner temp=new Scanner(System.in);
+                           Scanner temp = new Scanner(System.in);
                            temp.useDelimiter("\n");
                            Vendedor v=(Vendedor)user;
                            //validar que sea del tipo vendedor y no comprador
                            System.out.print("Ingrese la placa del vehiculo para revisar las ofertas: ");
                            String placa=temp.next();
+                           temp.close();
                            //busco la placa en al array ded vehiculos que ha publicado el vendedor
                            Vehiculo _selected=Vehiculo.searchByPlaca(v.getVehiculos(), placa);
                            //valido que no este vacio el vehiculo
@@ -130,13 +130,26 @@ public class Main {
                             System.out.println("No se ha registrado Comprador");
                     }
                     if(o==2){
-                        //Ofertar por un vehiculo
                         //primero logueo al usuario y lo traigo desde la base de datos
-                       Usuario user=login(vendedores, compradores);
-                       if(user!=null){
-                           Scanner temp=new Scanner(System.in);
-                           temp.useDelimiter("\n");
-                           Comprador c=(Comprador)user;
+                        int op=Task.MenuComprador(sc);
+                        if(op==1){
+                            if(Comprador.nextComprador(sc,"compradores.txt", compradores))
+                                System.out.println("Comprador registrado con exito");
+                            else
+                                System.out.println("No se ha registrado Comprador");
+                        }
+                    //Ofertar por un vehiculo
+                    if(opt==2){
+                        //primero logueo al usuario y lo traigo desde la base de datos
+                           Usuario user=login(vendedores, compradores);
+                           if(user!=null){
+                               Comprador v=(Comprador)user;
+                               
+                                int op=sc.nextInt();
+                               //validar que sea del tipo vendedor y no comprador
+                           } 
+                        }
+                        
                            //validar que sea del tipo comprador y no vendedor
                            //filtros de busqueda
                            //seleccion de vehiculo para ofertar
@@ -157,7 +170,7 @@ public class Main {
      Usuario user=Vendedor.searchByCorreo(vendedores, correo);
      if(user==null)
      {user=Comprador.searchByCorreo(compradores,correo);}
-     //sc.close();
+     sc.close();
         if(user==null){
             System.out.println("Usuario no existe en la plataforma");
             return null;
