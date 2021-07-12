@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  *
- * @author juanc
+ * @author eduardo
  */
 public class Util {
     
