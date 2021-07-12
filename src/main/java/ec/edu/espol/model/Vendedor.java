@@ -20,7 +20,7 @@ public class Vendedor extends Usuario {
     private ArrayList<Vehiculo> vehiculos;
     public Vendedor(int id, String nombres, String apellidos, String correo, String clave, String organizacion){
         super(id, nombres,apellidos,correo,clave,organizacion);
-        this.vehiculos=new ArrayList<>();
+        this.vehiculos=new ArrayList();
     }
 
     public ArrayList<Vehiculo> getVehiculos() {
@@ -76,7 +76,7 @@ public class Vendedor extends Usuario {
     }
     //carga la base de datos de vendedores desde archivos en texto plano al iniciar el programa principal o Main
     public static ArrayList<Vendedor> readFile(String nomfile){
-        ArrayList<Vendedor> vendedores = new ArrayList<>();
+        ArrayList<Vendedor> vendedores = new ArrayList();
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {

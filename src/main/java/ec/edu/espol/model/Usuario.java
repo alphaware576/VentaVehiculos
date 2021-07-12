@@ -5,8 +5,6 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
-import java.util.Scanner;
 
 /**
  *

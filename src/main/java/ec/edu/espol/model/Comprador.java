@@ -21,7 +21,7 @@ public class Comprador extends Usuario{
 
        public Comprador(int id, String nombres, String apellidos, String correo, String clave, String organizacion){
         super(id, nombres,apellidos,correo,clave,organizacion);
-        this.ofertas=new ArrayList<>();
+        this.ofertas=new ArrayList();
     }
 
     public ArrayList<Oferta> getOfertas() {
@@ -75,7 +75,7 @@ public class Comprador extends Usuario{
     }
     //carga la base de datos de compradores desde archivos en texto plano al iniciar el programa principal o Main
     public static ArrayList<Comprador> readFile(String nomfile){
-        ArrayList<Comprador> compradores = new ArrayList<>();
+        ArrayList<Comprador> compradores = new ArrayList();
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {

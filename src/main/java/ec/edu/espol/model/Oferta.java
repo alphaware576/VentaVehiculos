@@ -109,7 +109,7 @@ public class Oferta {
        
     //carga la base de datos de ofertas desde archivos en texto plano al iniciar el programa principal o Main
     public static ArrayList<Oferta> readFile(String nomfile,ArrayList<Vendedor>vendedores, ArrayList<Vehiculo> vehiculos,ArrayList<Comprador> compradores){
-        ArrayList<Oferta> ofertas = new ArrayList<>();
+        ArrayList<Oferta> ofertas = new ArrayList();
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {

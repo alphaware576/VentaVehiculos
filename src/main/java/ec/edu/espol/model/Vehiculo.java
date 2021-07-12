@@ -5,7 +5,7 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
+import ec.edu.espol.Util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -22,7 +22,7 @@ public class Vehiculo {
     private String marca;
     private String modelo;
     private String tipo_motor;
-    private int aÃ±o;
+    private int año;
     private String recorrido;
     private String color;
     private String tipo_comb;
@@ -41,7 +41,7 @@ public class Vehiculo {
         this.marca = marca;
         this.modelo = modelo;
         this.tipo_motor = tM;
-        this.aÃ±o = a;
+        this.año = a;
         this.recorrido = recorrido;
         this.color = color;
         this.tipo_comb = tC;
@@ -51,7 +51,7 @@ public class Vehiculo {
         this.precio = precio;
         this.idVendedor=vendedor.getId();
         this.vendedor=vendedor;
-        this.ofertas=new ArrayList<>();
+        this.ofertas=new ArrayList();
     }
 
     public int getId() {
@@ -94,12 +94,12 @@ public class Vehiculo {
         this.tipo_motor = tipo_motor;
     }
 
-    public int getAÃ±o() {
-        return aÃ±o;
+    public int getAño() {
+        return año;
     }
 
-    public void setAÃ±o(int aÃ±o) {
-        this.aÃ±o = aÃ±o;
+    public void setAño(int año) {
+        this.año = año;
     }
 
     public String getRecorrido() {
@@ -195,7 +195,7 @@ public class Vehiculo {
         String modelo = sc.next();
         System.out.println("Ingrese tipo de motor >");
         String tM = sc.next();
-        System.out.println("Ingrese el aÃ±o >");
+        System.out.println("Ingrese el año >");
         int a = sc.nextInt();
         System.out.println("Ingrese el recorrido>");
         String recorrido = sc.next();
@@ -231,7 +231,7 @@ public class Vehiculo {
         String modelo = sc.next();
         System.out.println("Ingrese tipo de motor >");
         String tM = sc.next();
-        System.out.println("Ingrese el aÃ±o >");
+        System.out.println("Ingrese el año >");
         int a = sc.nextInt();
         System.out.println("Ingrese el recorrido>");
         String recorrido = sc.next();
@@ -269,7 +269,7 @@ public class Vehiculo {
         String modelo = sc.next();
         System.out.println("Ingrese tipo de motor >");
         String tM = sc.next();
-        System.out.println("Ingrese el aÃ±o >");
+        System.out.println("Ingrese el año >");
         int a = sc.nextInt();
         System.out.println("Ingrese el recorrido>");
         String recorrido = sc.next();
@@ -300,7 +300,7 @@ public class Vehiculo {
         //fileoutpustream permite abrir el archivo en pmodo append
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
         {
-            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipo_motor+"|"+this.aÃ±o+"|"+this.recorrido+"|"+this.color+"|"+this.tipo_comb+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion+"|"+this.precio+"|"+this.idVendedor);
+            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipo_motor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipo_comb+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion+"|"+this.precio+"|"+this.idVendedor);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -308,7 +308,7 @@ public class Vehiculo {
     }
     //carga la base de datos de vendedores desde archivos en texto plano al iniciar el programa principal o Main
     public static ArrayList<Vehiculo> readFile(String nomfile, ArrayList<Vendedor> vendedores){
-        ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+        ArrayList<Vehiculo> vehiculos = new ArrayList();
         try(Scanner sc = new Scanner(new File(nomfile))){
             while(sc.hasNextLine())
             {
